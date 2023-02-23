@@ -23,27 +23,21 @@ for i in range(300):
 
 
 #Algoritmo 
-def max_idiferencia_dividir_y_vencer(S, b, e):
+def max_idiferencia_dividir_y_vencer (S,b,e) :
+    max_diferencia=0 
     if e - b < 2:
         return 0
+    else:
+      q = (b+e) //2
+      max_dif_izq= max_idiferencia_dividir_y_vencer(S, b, q-1)
+      max_dif_der = max_idiferencia_dividir_y_vencer(S, q+1,e)
+      suma_izq = sum (S [ b:q])
+      suma_der= sum(S [q+1:e])
+      sumamax=max(max_dif_izq,max_dif_der)
+      diferencia1=max(suma_izq,suma_der)
+      max_diferencia=max(sumamax, diferencia1)
+      return max_diferencia
 
-    q = (b + e) // 2
-
-    suma_izquierda = 0
-    for i in range(b, q):
-        suma_izquierda += S[i]
-
-    suma_derecha = 0
-    for i in range(q, e):
-        suma_derecha += S[i]
-
-    diferencia1 = suma_izquierda - suma_derecha
-    diferencia2 = max_idiferencia_dividir_y_vencer(S, b, q)
-    diferencia3 = max_idiferencia_dividir_y_vencer(S, q, e)
-
-    max_diferencia = max(abs(diferencia1), abs(diferencia2), abs(diferencia3))
-
-    return max_diferencia
 
 #Captura de tiempos
 def measure_time(s):
